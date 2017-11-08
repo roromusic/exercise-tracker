@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const cors = require('cors')
+const methods = require('./methods')
 
 app.use(cors())
 
@@ -16,9 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.post("/api/exercise/add", (req, res) => {
-  const url = req.body;
-  
-  res.json(url);
+  methods.addHandler(req, res);
 })
 
 
