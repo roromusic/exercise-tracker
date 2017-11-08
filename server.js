@@ -6,7 +6,7 @@ const mongo = require('mongodb').MongoClient;
 const cors = require('cors')
 const methods = require('./methods')
 
-const db = null;
+let db = null;
 
 mongo.connect(process.env.URI, (err, database) => {
   if (err) throw err;
@@ -24,7 +24,14 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
+app.post("/api/exercise/new-user", (req, res) => {
+  var collection = db.collection('users');
+  
+  methods.newUserHandler(req, res, collection);
+})
+
 app.post("/api/exercise/add", (req, res) => {
+  var collection = db.collection('users');
   methods.addHandler(req, res);
 })
 
