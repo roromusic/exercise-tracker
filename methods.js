@@ -5,6 +5,8 @@ methods.newUserHandler = (req, res, collection) => {
     if (err) throw err;
     if(!data) {
       return res.json({"error": "No such user"})
+    }else {
+      return res.end('username already taken');
     }
   })
 }
