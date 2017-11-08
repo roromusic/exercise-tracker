@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
+app.post("/api/exercise/add", (req, res) => {
+  res.end('yo');
+})
+
 
 // Not found middleware
 app.use((req, res, next) => {
