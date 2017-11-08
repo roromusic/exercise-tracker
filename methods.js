@@ -1,21 +1,9 @@
 const methods = {};
 
 methods.newUserHandler = (req, res, collection) => {
-  collection.findOne({}, (err, data) => {
-    if (err) throw err;
-    if(!data) {
-      return res.json({"error": "No such user"})
-    }else {
-      return res.end('username already taken');
-    }
-  })
-}
-
-methods.addHandler = (req, res, collection) => {
   const body = req.body;
   
-  //check if userId (body.userId) is in DB
-  collection.findOne({id: body.id}, (err, data) => {
+  collection.findOne({username: body.username}, (err, data) => {
     if (err) throw err;
     if(!data) {
       let obj = {
@@ -31,8 +19,18 @@ methods.addHandler = (req, res, collection) => {
           return res.json(obj);
         })
       })
-      return res.json({"error": "No such user"})
+    }else {
+      return res.end('username already taken');
     }
+  })
+}
+
+methods.addHandler = (req, res, collection) => {
+  const body = req.body;
+  
+  //check if userId (body.userId) is in DB
+  collection.findOne({id: body.id}, (err, data) => {
+    if (err) throw err;
   })
   //check if duration is a number
   
