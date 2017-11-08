@@ -43,11 +43,11 @@ methods.addHandler = (req, res, collection) => {
   collection.findOne({id: Number(body.userId)}, (err, data) => {
     if (err) throw err;
     if(!data) {
-      return res.json(data);
+      return res.end("unknown id");
     }
     //check if duration is a number
-    if(Number(body.duration) === NaN) {
-      return
+    if(!Number(body.duration)) {
+      return res.end("Duration input must be a number");
     }
   })
   
