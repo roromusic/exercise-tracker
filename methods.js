@@ -1,5 +1,9 @@
 const methods = {};
 
+methods.newUserHandler = (req, res) => {
+  
+}
+
 methods.addHandler = (req, res) => {
   const body = req.body;
   
