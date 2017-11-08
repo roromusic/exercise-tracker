@@ -1,9 +1,17 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mongo = require('mongodb').MongoClient;
 
 const cors = require('cors')
 const methods = require('./methods')
+
+const db = null;
+
+mongo.connect(process.env.URI, (err, database) => {
+  if (err) throw err;
+  db = database;
+});
 
 app.use(cors())
 
