@@ -45,8 +45,12 @@ methods.addHandler = (req, res, collection) => {
     if(!data) {
       return res.json(data);
     }
+    //check if duration is a number
+    if(Number(body.duration) === NaN) {
+      return
+    }
   })
-  //check if duration is a number
+  
   
   //check if date is valid. No data means today. 
   //return res.json(body);
