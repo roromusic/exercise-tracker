@@ -25,6 +25,10 @@ methods.newUserHandler = (req, res, collection) => {
   })
 }
 
+methods.getUsers = (req, res, collection) => {
+  
+}
+
 methods.addHandler = (req, res, collection) => {
   const body = req.body;
   

@@ -30,6 +30,11 @@ app.post("/api/exercise/new-user", (req, res) => {
   methods.newUserHandler(req, res, collection);
 })
 
+app.get("/api/exercise/users", ((req, res) => {
+  var collection = db.collection('users');
+  methods.getUsers(req, res, collection);
+}))
+
 app.post("/api/exercise/add", (req, res) => {
   var collection = db.collection('users');
   methods.addHandler(req, res);
