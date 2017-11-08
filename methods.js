@@ -26,9 +26,12 @@ methods.newUserHandler = (req, res, collection) => {
 }
 
 methods.getUsers = (req, res, collection) => {
-  collection.find({}, {username: 1, id: 1, log: 0}, (err, data) => {
+  collection.find({}, {
+    username: 1, id: 1, log: 0
+  } (err, data) => {
     if (err) throw err;
-    return res.json(data);
+    console.log(data.toArray());
+    return res.end();
   })
 }
 
