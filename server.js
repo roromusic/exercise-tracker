@@ -37,7 +37,7 @@ app.get("/api/exercise/users", (req, res) => {
 
 app.post("/api/exercise/add", (req, res) => {
   var collection = db.collection('users');
-  methods.addHandler(req, res);
+  methods.addHandler(req, res, collection);
 })
 
 
