@@ -16,7 +16,9 @@ app.get('/', (req, res) => {
 });
 
 app.post("/api/exercise/add", (req, res) => {
-  res.end('yo');
+  const url = req.body;
+  
+  res.json(url);
 })
 
 
