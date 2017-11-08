@@ -40,13 +40,16 @@ methods.addHandler = (req, res, collection) => {
   const body = req.body;
   
   //check if userId (body.userId) is in DB
-  collection.findOne({id: body.id}, (err, data) => {
+  collection.findOne({id: Number(body.userId)}, (err, data) => {
     if (err) throw err;
+    if(!data) {
+      return res.json(data);
+    }
   })
   //check if duration is a number
   
   //check if date is valid. No data means today. 
-  return res.json(body);
+  //return res.json(body);
 }
 
 module.exports = methods;
