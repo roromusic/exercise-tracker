@@ -40,28 +40,56 @@ methods.getUsers = (req, res, collection) => {
 
 methods.addHandler = (req, res, collection) => {
   const body = req.body;
+  let id = Number(body.userId),
+      duration = body.duration,
+      description = body.description,
+      date;
   
   //check if userId (body.userId) is in DB
-  collection.findOne({id: Number(body.userId)}, (err, data) => {
+  collection.findOne({id: id}, (err, data) => {
     if (err) throw err;
     if(!data) {
       return res.end("unknown id");
     }
     //check if duration is a number
-    if(!Number(body.duration)) {
+    if(!Number(duration)) {
       return res.end("Duration input must be a number");
     }
     //convert date to proper format
     if(!body.date) {
-      return res.end(chrono.parseDate('today').toString().slice(0, 15));
+      date = chrono.parseDate('today').toString().slice(0, 15);
     }else{
       if(chrono.parseDate(body.date)) {
-        return res.end(chrono.parseDate(body.date).toString().slice(0, 15));
+        date = chrono.parseDate(body.date).toString().slice(0, 15);
       }else {
         return res.end('Invalid date');
       }
-      
     }
+    let log = data.log;
+    let obj = {
+      username: data.username,
+      id: data.id,
+      description: description,
+      duration: duration,
+      date: date
+    }
+    
+    log.unshift({
+      description: description,
+      duration: duration,
+      date: date
+    });
+    
+    collection.update({
+      id: id
+    }, {
+      $set: {
+        log: log
+      }
+    }, (err, data) => {
+      if(err) throw err;
+      res.json(obj);
+    })
   })
   
   
