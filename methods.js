@@ -51,7 +51,17 @@ methods.addHandler = (req, res, collection) => {
     if(!Number(body.duration)) {
       return res.end("Duration input must be a number");
     }
-    return res.end(chrono.parseDate(body.date).toString().slice(0, 15));
+    //convert date to proper format
+    if(!body.date) {
+      return res.end(chrono.parseDate('today').toString().slice(0, 15));
+    }else{
+      if(chrono.parseDate(body.date)) {
+        return res.end(chrono.parseDate(body.date).toString().slice(0, 15));
+      }else {
+        return res.end('Invalid date');
+      }
+      
+    }
   })
   
   
