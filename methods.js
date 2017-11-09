@@ -51,7 +51,7 @@ methods.addHandler = (req, res, collection) => {
     if(!Number(body.duration)) {
       return res.end("Duration input must be a number");
     }
-    return res.end(chrono.parseDate(body.date).toString());
+    return res.end(chrono.parseDate(body.date).toString().slice(0, 15));
   })
   
   
