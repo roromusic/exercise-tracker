@@ -1,3 +1,5 @@
+const chrono = require('chrono-node');
+
 const methods = {};
 
 methods.newUserHandler = (req, res, collection) => {
@@ -49,6 +51,7 @@ methods.addHandler = (req, res, collection) => {
     if(!Number(body.duration)) {
       return res.end("Duration input must be a number");
     }
+    return res.end(chrono.parseDate(body.date).toString());
   })
   
   
