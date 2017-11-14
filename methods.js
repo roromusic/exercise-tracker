@@ -105,7 +105,7 @@ methods.getLog = (req, res, collection) => {
       limit = req.query.limit,
       from = undefined,
       to = undefined;
-  
+
   let toResults = new chrono.parse(req.query.to);
   let fromResults = new chrono.parse(req.query.from);
   
@@ -114,11 +114,11 @@ methods.getLog = (req, res, collection) => {
   
   collection.findOne({id: userId}, (err, data) => {
     if (err) throw err;
-    let obj = {
-      id: data.id,
-      username: data.username,
-      count: data.log.length,
-      log: data.log.sort((a,b) => {
+    
+    let logArr = data.log;
+    if(limit) logArr.length = limit;
+    
+    logArr.sort((a,b) => {
         return b.dateObj - a.dateObj;
       }).map(obj => {
         return {
@@ -127,6 +127,12 @@ methods.getLog = (req, res, collection) => {
           date: obj.date
         }
       })
+    
+    let obj = {
+      id: data.id,
+      username: data.username,
+      count: data.log.length,
+      log: 
     }
     res.json(obj);
   })
