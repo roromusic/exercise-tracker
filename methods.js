@@ -118,7 +118,9 @@ methods.getLog = (req, res, collection) => {
       id: data.id,
       username: data.username,
       count: data.log.length,
-      log: data.log.map(obj => {
+      log: data.log.sort((a,b) => {
+        return b.dateObj - a.dateObj;
+      }).map(obj => {
         return {
           description: obj.description,
           duration: obj.duration,
