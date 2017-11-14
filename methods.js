@@ -98,6 +98,11 @@ methods.addHandler = (req, res, collection) => {
 }
 
 methods.getLog = (req, res, collection) => {
+  let userId = req.query.userId;
+  let from = req.query.from;
+  let to = req.query.to;
+  let limit = req.query.limit;
   
+  res.end(userId + " " + from + " " + to + " " + limit);
 }
 module.exports = methods;
