@@ -40,6 +40,11 @@ app.post("/api/exercise/add", (req, res) => {
   methods.addHandler(req, res, collection);
 })
 
+app.get("/api/exercise/log", (req, res) => {
+  var collection = db.collection('users');
+  methods.getLog(req, res, collection);
+})
+
 
 // Not found middleware
 app.use((req, res, next) => {

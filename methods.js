@@ -97,4 +97,7 @@ methods.addHandler = (req, res, collection) => {
   //return res.json(body);
 }
 
+methods.getLog = (req, res, collection) => {
+  
+}
 module.exports = methods;
