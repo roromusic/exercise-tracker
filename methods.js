@@ -116,10 +116,10 @@ methods.getLog = (req, res, collection) => {
     if (err) throw err;
     
     let logArr = data.log;
-    if(limit) logArr.length = limit;
-    
-    logArr.sort((a,b) => {
+    logArr = logArr.sort((a,b) => {
         return b.dateObj - a.dateObj;
+      }).filter(obj => {
+        
       }).map(obj => {
         return {
           description: obj.description,
@@ -127,12 +127,13 @@ methods.getLog = (req, res, collection) => {
           date: obj.date
         }
       })
+    if(limit & limit < logArr.length) logArr.length = limit;
     
     let obj = {
       id: data.id,
       username: data.username,
       count: data.log.length,
-      log: 
+      log: logArr
     }
     res.json(obj);
   })
