@@ -79,7 +79,8 @@ methods.addHandler = (req, res, collection) => {
     log.unshift({
       description: description,
       duration: duration,
-      date: date
+      dateObj: date,
+      date: date.toString().slice(0, 15)
     });
     
     collection.update({
@@ -111,7 +112,7 @@ methods.getLog = (req, res, collection) => {
   if (toResults.length > 0) to = toResults[0].start.date();
   if (fromResults.length > 0) from = fromResults[0].start.date();
   
-  collection.findOne({id: userId}, (err, data) => {
+  collection.findOne({id: userId}, {}, (err, data) => {
     if (err) throw err;
     let obj = {
       id: data.id,
