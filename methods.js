@@ -112,13 +112,19 @@ methods.getLog = (req, res, collection) => {
   if (toResults.length > 0) to = toResults[0].start.date();
   if (fromResults.length > 0) from = fromResults[0].start.date();
   
-  collection.findOne({id: userId}, {}, (err, data) => {
+  collection.findOne({id: userId}, (err, data) => {
     if (err) throw err;
     let obj = {
       id: data.id,
       username: data.username,
       count: data.log.length,
-      log: data.log
+      log: data.log.map(obj => {
+        return {
+          description: obj.description,
+          duration: obj.duration,
+          date: obj.date
+        }
+      })
     }
     res.json(obj);
   })
