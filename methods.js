@@ -119,7 +119,15 @@ methods.getLog = (req, res, collection) => {
     logArr = logArr.sort((a,b) => {
         return b.dateObj - a.dateObj;
       }).filter(obj => {
-        
+        if (from && to) {
+          return obj.dateObj >= from && obj.dateObj <= to
+        }else if (from) {
+          return obj.dateObj >= from
+        }else if (to) {
+          return obj.dateObj <= to
+        }else {
+          return true
+        }
       }).map(obj => {
         return {
           description: obj.description,
