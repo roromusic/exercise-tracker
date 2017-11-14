@@ -57,10 +57,12 @@ methods.addHandler = (req, res, collection) => {
     }
     //convert date to proper format
     if(!body.date) {
-      date = chrono.parseDate('today').toString().slice(0, 15);
+      let results = new chrono.parse('today');
+      date = results[0].start.date();
     }else{
       if(chrono.parseDate(body.date)) {
-        date = chrono.parseDate(body.date).toString().slice(0, 15);
+        let results = new chrono.parse(body.date);
+        date = results[0].start.date();
       }else {
         return res.end('Invalid date');
       }
@@ -71,7 +73,7 @@ methods.addHandler = (req, res, collection) => {
       id: data.id,
       description: description,
       duration: duration,
-      date: date
+      date: date.toString().slice(0, 15)
     }
     
     log.unshift({
