@@ -100,7 +100,7 @@ methods.addHandler = (req, res, collection) => {
 }
 
 methods.getLog = (req, res, collection) => {
-  let userId = req.query.userId,
+  let userId = Number(req.query.userId),
       limit = req.query.limit,
       from = undefined,
       to = undefined;
@@ -108,13 +108,18 @@ methods.getLog = (req, res, collection) => {
   let toResults = new chrono.parse(req.query.to);
   let fromResults = new chrono.parse(req.query.from);
   
-  if (toResults) to = toResults[0].start.date();
-  if (fromResults) from = fromResults[0].start.date();
+  if (toResults.length > 0) to = toResults[0].start.date();
+  if (fromResults.length > 0) from = fromResults[0].start.date();
   
-  collection.findOne({})
-  
-
-  
-  res.end(userId + " " + from + " " + to + " " + limit);
+  collection.findOne({id: userId}, (err, data) => {
+    if (err) throw err;
+    let obj = {
+      id: data.id,
+      username: data.username,
+      count: data.log.length,
+      log: data.log
+    }
+    res.json(obj);
+  })
 }
 module.exports = methods;
